@@ -1,0 +1,1 @@
+function e(c){if(!c||!/^#[0-9a-fA-F]{6}$/.test(c))return null;let r=[1,3,5].map(n=>parseInt(c.slice(n,n+2),16)),a=n=>{let t=n/255;return t<=.03928?t/12.92:Math.pow((t+.055)/1.055,2.4)},o=.2126*a(r[0])+.7152*a(r[1])+.0722*a(r[2]);return{acc:c,acc2:(n=>"#"+r.map(t=>Math.round(t+(255-t)*n).toString(16).padStart(2,"0")).join(""))(.35),on:o>.4?"#101010":"#ffffff"}}export{e as a};
