@@ -25,8 +25,26 @@
 <body>
   <!-- Pre-splash: se ve mientras carga la app; Angular lo reemplaza por la animación completa -->
   <div id="boot" style="position:fixed;inset:0;z-index:2999;display:grid;place-items:center"><img src="img/logo-mark.png" alt width="118" style="height:auto;filter:drop-shadow(0 8px 24px rgba(47,93,74,.35))"></div>
-  <script>(function(){var r=location.pathname.replace(/^\/Eventora/,'');var negocio=/^\/?(login|p|admin|suspendida)(\/|$)/.test(r)||r===''||r==='/';if(!negocio||/[?&]vista=1/.test(location.search))document.getElementById('boot').remove();})();</script>
+  <script>(function(){
+    var base = document.querySelector('base')?.getAttribute('href') || '/';
+    var baseClean = base.replace(/\/$/, '');
+    var path = location.pathname;
+    if (baseClean && path.startsWith(baseClean)) path = path.slice(baseClean.length);
+    path = path.replace(/^\/+/, '');
+    if (path && !location.hash) {
+      location.replace((baseClean || '') + '/#/' + path + location.search);
+      return;
+    }
+    var h = (location.hash || '').replace(/^#\/?/, '').split('?')[0];
+    var r = h || path;
+    var negocio = /^\/?(login|p|admin|suspendida)(\/|$)/.test(r) || (r === '' && !location.hash);
+    var isVista = /[?&]vista=1/.test(location.search) || /[?&]vista=1/.test(location.hash);
+    if (!negocio || isVista) {
+      var b = document.getElementById('boot');
+      if (b) b.remove();
+    }
+  })();</script>
   <app-root></app-root>
   <noscript>Eventos necesita JavaScript.</noscript>
-<link rel="modulepreload" href="chunk-44GR6PC4.js"><link rel="modulepreload" href="chunk-RU5EBKK5.js"><link rel="modulepreload" href="chunk-HTWUS5RZ.js"><link rel="modulepreload" href="chunk-WGVWXVIA.js"><link rel="modulepreload" href="chunk-ERETJGDN.js"><link rel="modulepreload" href="chunk-FKIOA2KJ.js"><link rel="modulepreload" href="chunk-RMF672BE.js"><link rel="modulepreload" href="chunk-CEYC4EKA.js"><link rel="modulepreload" href="chunk-5X7SICUO.js"><link rel="modulepreload" href="chunk-354ICD2J.js"><script src="polyfills-5CFQRCPP.js" type="module"></script><script src="main-LUYEZFPT.js" type="module"></script></body>
+<link rel="modulepreload" href="chunk-DW26WZ74.js"><link rel="modulepreload" href="chunk-RU5EBKK5.js"><link rel="modulepreload" href="chunk-2ODYQ6TA.js"><link rel="modulepreload" href="chunk-WGVWXVIA.js"><link rel="modulepreload" href="chunk-ERETJGDN.js"><link rel="modulepreload" href="chunk-FKIOA2KJ.js"><link rel="modulepreload" href="chunk-RMF672BE.js"><link rel="modulepreload" href="chunk-BX7CBZ6U.js"><link rel="modulepreload" href="chunk-5X7SICUO.js"><link rel="modulepreload" href="chunk-354ICD2J.js"><script src="polyfills-5CFQRCPP.js" type="module"></script><script src="main-4BFQCOMA.js" type="module"></script></body>
 </html>
